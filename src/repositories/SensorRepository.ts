@@ -14,6 +14,16 @@ class SensorRepository {
       data: sensorsData,
     });
   }
+
+  async findSensorsSince(date: Date): Promise<Sensor[]> {
+    return await SensorModel.findMany({
+      where: {
+        created_at: {
+          gte: date,
+        },
+      },
+    });
+  }
 }
 
 export default SensorRepository;

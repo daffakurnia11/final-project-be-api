@@ -2,6 +2,8 @@ import SensorRepository from "../repositories/SensorRepository";
 import { Sensor } from "@prisma/client";
 import { v7 as uuidv7 } from "uuid";
 import { BulkSensorData, SensorData } from "../types/Sensor";
+import { Request } from "express";
+import { subHours } from "date-fns";
 
 class SensorService {
   private repository: SensorRepository;
@@ -17,12 +19,23 @@ class SensorService {
     return await this.repository.create({ id, ...sensorData });
   }
 
-  async bulkCreate(sensorsData: BulkSensorData): Promise<Sensor[]> {
+  async bulkCreate(
+    req: Request,
+    sensorsData: BulkSensorData
+  ): Promise<Sensor[]> {
     const sensors: SensorData[] = sensorsData.sensors.map((sensor) => ({
       id: uuidv7(),
       ...sensor,
     }));
-    return await this.repository.bulkCreate(sensors);
+    const response = await this.repository.bulkCreate(sensors);
+    const getSensor = await this.repository.findSensorsSince(
+      subHours(new Date(), 1)
+    );
+    const io = req.app.get("socketio");
+    io.emit("sensor-data-updated", getSensor);
+    io.emit("sensor-data-current", response);
+
+    return response;
   }
 }
 

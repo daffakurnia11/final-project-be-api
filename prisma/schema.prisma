@@ -27,6 +27,8 @@ model Sensor {
   energy            Float    
   apparent_power    Float    
   reactive_power    Float   
+
+  @@map("sensor_electrics")
 }
 
 

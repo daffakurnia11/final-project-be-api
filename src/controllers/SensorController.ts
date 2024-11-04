@@ -4,13 +4,13 @@ import SensorService from "../services/SensorService";
 
 class SensorController {
   private service: SensorService;
-  
+
   constructor() {
     this.service = new SensorService();
     this.create = this.create.bind(this);
     this.bulkCreate = this.bulkCreate.bind(this);
   }
-  
+
   async create(req: Request, res: Response, next: NextFunction) {
     try {
       const response = await this.service.create(req.body);
@@ -22,7 +22,7 @@ class SensorController {
 
   async bulkCreate(req: Request, res: Response, next: NextFunction) {
     try {
-      const response = await this.service.bulkCreate(req.body);
+      const response = await this.service.bulkCreate(req, req.body);
       res.created(SENSOR_MESSAGE.BULK_CREATED, response);
     } catch (error) {
       next(error);
