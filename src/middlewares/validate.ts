@@ -1,0 +1,18 @@
+import { Request, Response, NextFunction } from "express";
+import { validationResult } from "express-validator";
+
+export const handleValidation = (
+  req: Request,
+  _: Response,
+  next: NextFunction
+) => {
+  const errors = validationResult(req);
+  console.log(errors)
+  if (!errors.isEmpty()) {
+    next({
+      message: errors.array()[0].msg,
+      statusCode: 400,
+    });
+  }
+  next();
+};
