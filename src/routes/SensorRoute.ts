@@ -17,13 +17,13 @@ class SensorRoute {
 
   private initializeRoutes() {
     this.router.post(
-      "/",
+      "/single",
       this.validator.create,
       handleValidation,
       this.controller.create
     );
     this.router.post(
-      "/bulk",
+      "/",
       this.validator.bulkCreate,
       handleValidation,
       this.controller.bulkCreate

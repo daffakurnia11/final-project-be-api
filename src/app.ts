@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Import routes here
 app.use(responseHandler);
-app.use("/api/sensors", new SensorRoute().router); // Pass the service to SensorRoute
+app.use("/api/v1/sensors", new SensorRoute().router); // Pass the service to SensorRoute
 app.use(errorHandler);
 
 export { app };

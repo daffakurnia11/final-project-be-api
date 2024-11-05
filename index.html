@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebSocket Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="container mx-auto py-3">
+      <h1 class="text-3xl font-bold text-center">WebSocket Test</h1>
+      <h2 class="text-xl font-semibold mb-1 mt-6">Real-time Current Data</h2>
+      <p class="text-base font-medium mb-4" id="datetime">Recorded by :</p>
+      <div
+        class="border border-solid border-gray-300 rounded-lg px-6 py-4 mb-4"
+      >
+        <p class="text-base font-medium mb-3" id="name-1">
+          Sensor name : Sensor 1
+        </p>
+        <div class="grid grid-cols-12 gap-4">
+          <div class="col-span-3">
+            <div
+              class="border border-solid border-gray-300 rounded-lg px-6 py-4"
+            >
+              <p class="text-base font-medium">Voltage</p>
+              <div class="flex gap-x-2">
+                <h3 class="text-lg font-bold" id="voltage-1">0</h3>
+                <h3 class="text-lg font-bold">V</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-3">
+            <div
+              class="border border-solid border-gray-300 rounded-lg px-6 py-4"
+            >
+              <p class="text-base font-medium">Current</p>
+              <div class="flex gap-x-2">
+                <h3 class="text-lg font-bold" id="current-1">0</h3>
+                <h3 class="text-lg font-bold">A</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-3">
+            <div
+              class="border border-solid border-gray-300 rounded-lg px-6 py-4"
+            >
+              <p class="text-base font-medium">Power</p>
+              <div class="flex gap-x-2">
+                <h3 class="text-lg font-bold" id="power-1">0</h3>
+                <h3 class="text-lg font-bold">W</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-3">
+            <div
+              class="border border-solid border-gray-300 rounded-lg px-6 py-4"
+            >
+              <p class="text-base font-medium">Energy</p>
+              <div class="flex gap-x-2">
+                <h3 class="text-lg font-bold" id="energy-1">0</h3>
+                <h3 class="text-lg font-bold">kWh</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="border border-solid border-gray-300 rounded-lg px-6 py-4 mb-4"
+      >
+        <p class="text-base font-medium mb-3" id="name-2">
+          Sensor name : Sensor 2
+        </p>
+        <div class="grid grid-cols-12 gap-4">
+          <div class="col-span-3">
+            <div
+              class="border border-solid border-gray-300 rounded-lg px-6 py-4"
+            >
+              <p class="text-base font-medium">Voltage</p>
+              <div class="flex gap-x-2">
+                <h3 class="text-lg font-bold" id="voltage-2">0</h3>
+                <h3 class="text-lg font-bold">V</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-3">
+            <div
+              class="border border-solid border-gray-300 rounded-lg px-6 py-4"
+            >
+              <p class="text-base font-medium">Current</p>
+              <div class="flex gap-x-2">
+                <h3 class="text-lg font-bold" id="current-2">0</h3>
+                <h3 class="text-lg font-bold">A</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-3">
+            <div
+              class="border border-solid border-gray-300 rounded-lg px-6 py-4"
+            >
+              <p class="text-base font-medium">Power</p>
+              <div class="flex gap-x-2">
+                <h3 class="text-lg font-bold" id="power-2">0</h3>
+                <h3 class="text-lg font-bold">W</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-3">
+            <div
+              class="border border-solid border-gray-300 rounded-lg px-6 py-4"
+            >
+              <p class="text-base font-medium">Energy</p>
+              <div class="flex gap-x-2">
+                <h3 class="text-lg font-bold" id="energy-2">0</h3>
+                <h3 class="text-lg font-bold">kWh</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="border border-solid border-gray-300 rounded-lg px-6 py-4 mb-4"
+      >
+        <p class="text-base font-medium mb-3" id="name-3">
+          Sensor name : Sensor 3
+        </p>
+        <div class="grid grid-cols-12 gap-4">
+          <div class="col-span-3">
+            <div
+              class="border border-solid border-gray-300 rounded-lg px-6 py-4"
+            >
+              <p class="text-base font-medium">Voltage</p>
+              <div class="flex gap-x-2">
+                <h3 class="text-lg font-bold" id="voltage-3">0</h3>
+                <h3 class="text-lg font-bold">V</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-3">
+            <div
+              class="border border-solid border-gray-300 rounded-lg px-6 py-4"
+            >
+              <p class="text-base font-medium">Current</p>
+              <div class="flex gap-x-2">
+                <h3 class="text-lg font-bold" id="current-3">0</h3>
+                <h3 class="text-lg font-bold">A</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-3">
+            <div
+              class="border border-solid border-gray-300 rounded-lg px-6 py-4"
+            >
+              <p class="text-base font-medium">Power</p>
+              <div class="flex gap-x-2">
+                <h3 class="text-lg font-bold" id="power-3">0</h3>
+                <h3 class="text-lg font-bold">W</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-3">
+            <div
+              class="border border-solid border-gray-300 rounded-lg px-6 py-4"
+            >
+              <p class="text-base font-medium">Energy</p>
+              <div class="flex gap-x-2">
+                <h3 class="text-lg font-bold" id="energy-3">0</h3>
+                <h3 class="text-lg font-bold">kWh</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script>
+      const socket = io("http://localhost:8000");
+
+      socket.on("connect", () => {
+        console.log("Connected to WebSocket server");
+      });
+
+      socket.on("sensor-data-updated", (data) => {
+        console.log("Real-time data received:", data);
+      });
+
+      socket.on("sensor-data-current", (data) => {
+        console.log("Real-time current data received:", data);
+
+        const datetimeElement = document.getElementById("datetime");
+        // Format datetime to be "2022-01-01 00:00:00"
+        const datetime = new Date(data[0].created_at).toString("en-US");
+        datetimeElement.textContent = `Recorded by : ${datetime}`;
+
+        // Sensor 1
+        const sensorNameFirstElement = document.getElementById("name-1");
+        sensorNameFirstElement.textContent = `Sensor name : ${data[0].name}`;
+
+        const voltageFirstElement = document.getElementById("voltage-1");
+        voltageFirstElement.textContent = data[0].voltage.toFixed(1);
+
+        const currentFirstElement = document.getElementById("current-1");
+        currentFirstElement.textContent = data[0].current.toFixed(3);
+
+        const powerFirstElement = document.getElementById("power-1");
+        powerFirstElement.textContent = data[0].power.toFixed(1);
+
+        const energyFirstElement = document.getElementById("energy-1");
+        energyFirstElement.textContent = data[0].energy.toFixed(3);
+
+        // Sensor 2
+        const sensorNameSecondElement = document.getElementById("name-2");
+        sensorNameSecondElement.textContent = `Sensor name : ${data[1].name}`;
+
+        const voltageSecondElement = document.getElementById("voltage-2");
+        voltageSecondElement.textContent = data[1].voltage.toFixed(1);
+
+        const currentSecondElement = document.getElementById("current-2");
+        currentSecondElement.textContent = data[1].current.toFixed(3);
+
+        const powerSecondElement = document.getElementById("power-2");
+        powerSecondElement.textContent = data[1].power.toFixed(1);
+
+        const energySecondElement = document.getElementById("energy-2");
+        energySecondElement.textContent = data[1].energy.toFixed(3);
+
+        // Sensor 3
+        const sensorNameThirdElement = document.getElementById("name-3");
+        sensorNameThirdElement.textContent = `Sensor name : ${data[2].name}`;
+
+        const voltageThirdElement = document.getElementById("voltage-3");
+        voltageThirdElement.textContent = data[2].voltage.toFixed(1);
+
+        const currentThirdElement = document.getElementById("current-3");
+        currentThirdElement.textContent = data[2].current.toFixed(3);
+
+        const powerThirdElement = document.getElementById("power-3");
+        powerThirdElement.textContent = data[2].power.toFixed(1);
+
+        const energyThirdElement = document.getElementById("energy-3");
+        energyThirdElement.textContent = data[2].energy.toFixed(3);
+      });
+
+      socket.on("disconnect", () => {
+        console.log("Disconnected from WebSocket server");
+      });
+    </script>
+  </body>
+</html>
