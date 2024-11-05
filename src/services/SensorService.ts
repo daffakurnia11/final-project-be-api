@@ -23,7 +23,7 @@ class SensorService {
     req: Request,
     sensorsData: BulkSensorData
   ): Promise<Sensor[]> {
-    const sensors: SensorData[] = sensorsData.sensors.map((sensor) => ({
+    const sensors: SensorData[] = sensorsData.se.map((sensor) => ({
       id: uuidv7(),
       ...sensor,
     }));

@@ -12,5 +12,5 @@ export interface SensorData {
 }
 
 export interface BulkSensorData {
-  sensors: SensorData[];
+  se: SensorData[];
 }

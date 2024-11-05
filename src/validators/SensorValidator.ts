@@ -20,32 +20,32 @@ class SensorValidator {
   ];
 
   public bulkCreate = [
-    body("sensors")
+    body("se")
       .exists()
       .withMessage("Sensor data is required")
       .isArray()
       .withMessage("Sensor data must be an array of objects")
       .custom((value) => (value.length < 3 ? false : true))
       .withMessage("Sensor data must have at least 3 objects"),
-    body("sensors.*.name").exists().withMessage("Sensor name is required"),
-    body("sensors.*.voltage")
+    body("se.*.name").exists().withMessage("Sensor name is required"),
+    body("se.*.voltage")
       .exists()
       .withMessage("Sensor voltage is required"),
-    body("sensors.*.current")
+    body("se.*.current")
       .exists()
       .withMessage("Sensor current is required"),
-    body("sensors.*.power").exists().withMessage("Sensor power is required"),
-    body("sensors.*.power_factor")
+    body("se.*.power").exists().withMessage("Sensor power is required"),
+    body("se.*.power_factor")
       .exists()
       .withMessage("Sensor power factor is required"),
-    body("sensors.*.frequency")
+    body("se.*.frequency")
       .exists()
       .withMessage("Sensor frequency is required"),
-    body("sensors.*.energy").exists().withMessage("Sensor energy is required"),
-    body("sensors.*.apparent_power")
+    body("se.*.energy").exists().withMessage("Sensor energy is required"),
+    body("se.*.apparent_power")
       .exists()
       .withMessage("Sensor apparent power is required"),
-    body("sensors.*.reactive_power")
+    body("se.*.reactive_power")
       .exists()
       .withMessage("Sensor reactive power is required"),
   ];
