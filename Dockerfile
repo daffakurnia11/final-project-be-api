@@ -11,6 +11,9 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
+# Install Prisma Client
+RUN npx prisma generate
+
 # Build the TypeScript files
 RUN npm run build
 
@@ -23,9 +26,6 @@ WORKDIR /app
 # Copy the built files and necessary dependencies from the build stage
 COPY --from=build /app/dist ./dist
 COPY package*.json ./
-
-# Install Prisma Client
-RUN npx prisma generate
 
 # Install only production dependencies
 RUN npm install --only=production
