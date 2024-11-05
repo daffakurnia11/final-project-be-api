@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <div class="container mx-auto py-3">
+    <div class="container mx-auto py-3 px-4">
       <h1 class="text-3xl font-bold text-center">WebSocket Test</h1>
       <h2 class="text-xl font-semibold mb-1 mt-6">Real-time Current Data</h2>
       <p class="text-base font-medium mb-4" id="datetime">Recorded by :</p>
@@ -17,8 +17,8 @@
         <p class="text-base font-medium mb-3" id="name-1">
           Sensor name : Sensor 1
         </p>
-        <div class="grid grid-cols-12 gap-4">
-          <div class="col-span-3">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+          <div class="md:col-span-3">
             <div
               class="border border-solid border-gray-300 rounded-lg px-6 py-4"
             >
@@ -29,7 +29,7 @@
               </div>
             </div>
           </div>
-          <div class="col-span-3">
+          <div class="md:col-span-3">
             <div
               class="border border-solid border-gray-300 rounded-lg px-6 py-4"
             >
@@ -40,7 +40,7 @@
               </div>
             </div>
           </div>
-          <div class="col-span-3">
+          <div class="md:col-span-3">
             <div
               class="border border-solid border-gray-300 rounded-lg px-6 py-4"
             >
@@ -51,7 +51,7 @@
               </div>
             </div>
           </div>
-          <div class="col-span-3">
+          <div class="md:col-span-3">
             <div
               class="border border-solid border-gray-300 rounded-lg px-6 py-4"
             >
@@ -70,8 +70,8 @@
         <p class="text-base font-medium mb-3" id="name-2">
           Sensor name : Sensor 2
         </p>
-        <div class="grid grid-cols-12 gap-4">
-          <div class="col-span-3">
+        <div class="grid md:grid-cols-12 gap-4">
+          <div class="md:col-span-3">
             <div
               class="border border-solid border-gray-300 rounded-lg px-6 py-4"
             >
@@ -82,7 +82,7 @@
               </div>
             </div>
           </div>
-          <div class="col-span-3">
+          <div class="md:col-span-3">
             <div
               class="border border-solid border-gray-300 rounded-lg px-6 py-4"
             >
@@ -93,7 +93,7 @@
               </div>
             </div>
           </div>
-          <div class="col-span-3">
+          <div class="md:col-span-3">
             <div
               class="border border-solid border-gray-300 rounded-lg px-6 py-4"
             >
@@ -104,7 +104,7 @@
               </div>
             </div>
           </div>
-          <div class="col-span-3">
+          <div class="md:col-span-3">
             <div
               class="border border-solid border-gray-300 rounded-lg px-6 py-4"
             >
@@ -123,8 +123,8 @@
         <p class="text-base font-medium mb-3" id="name-3">
           Sensor name : Sensor 3
         </p>
-        <div class="grid grid-cols-12 gap-4">
-          <div class="col-span-3">
+        <div class="grid md:grid-cols-12 gap-4">
+          <div class="md:col-span-3">
             <div
               class="border border-solid border-gray-300 rounded-lg px-6 py-4"
             >
@@ -135,7 +135,7 @@
               </div>
             </div>
           </div>
-          <div class="col-span-3">
+          <div class="md:col-span-3">
             <div
               class="border border-solid border-gray-300 rounded-lg px-6 py-4"
             >
@@ -146,7 +146,7 @@
               </div>
             </div>
           </div>
-          <div class="col-span-3">
+          <div class="md:col-span-3">
             <div
               class="border border-solid border-gray-300 rounded-lg px-6 py-4"
             >
@@ -157,7 +157,7 @@
               </div>
             </div>
           </div>
-          <div class="col-span-3">
+          <div class="md:col-span-3">
             <div
               class="border border-solid border-gray-300 rounded-lg px-6 py-4"
             >
@@ -174,7 +174,7 @@
 
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <script>
-      const socket = io("http://localhost:8000");
+      const socket = io("https://fp-backend.finalproject-be.dafkur.com");
 
       socket.on("connect", () => {
         console.log("Connected to WebSocket server");

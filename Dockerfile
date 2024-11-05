@@ -23,4 +23,4 @@ RUN npm run build
 EXPOSE 8000
 
 # Command untuk menjalankan aplikasi
-CMD ["node", "dist/server.js"]
+CMD ["npm", "start"]
