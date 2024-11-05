@@ -24,6 +24,9 @@ WORKDIR /app
 COPY --from=build /app/dist ./dist
 COPY package*.json ./
 
+# Install Prisma Client
+RUN npx prisma generate
+
 # Install only production dependencies
 RUN npm install --only=production
 

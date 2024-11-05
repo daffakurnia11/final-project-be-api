@@ -6,7 +6,6 @@ dotenv.config();
 const envSchema = Joi.object({
   NODE_ENV: Joi.string().valid("development", "production", "test").required(),
   API_PORT: Joi.number().required(),
-  WSS_PORT: Joi.number().required(),
   DATABASE_URL: Joi.string().required(),
 }).unknown();
 
@@ -19,6 +18,5 @@ if (error) {
 export const config = {
   env: envVars.NODE_ENV,
   apiPort: envVars.API_PORT,
-  wssPort: envVars.WSS_PORT,
   dbUrl: envVars.DB_DATABASE_URLURL,
 };
