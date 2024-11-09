@@ -38,15 +38,40 @@ class SensorService {
     }));
     const response = await this.repository.bulkCreate(sensors);
 
-    const io = req.app.get("socketio");
-
-    io.emit("update-sensor-data", {
-      success: true,
-      status: 200,
-      message: "Data updated successfully.",
-    });
+    this.socket(req, response);
 
     return response;
+  }
+
+  async socket(req: Request, sensors: Sensor[]): Promise<void> {
+    const io = req.app.get("socketio");
+
+    io.emit("realtime-sensor-data", sensors);
+
+    io.emit(
+      "5-min-sensor-data",
+      await this.findSensorsSince(subMinutes(new Date(), 5))
+    );
+
+    io.emit(
+      "15-min-sensor-data",
+      await this.findSensorsSince(subMinutes(new Date(), 15))
+    )
+
+    io.emit(
+      "30-min-sensor-data",
+      await this.findSensorsSince(subMinutes(new Date(), 30))
+    )
+
+    io.emit(
+      "60-min-sensor-data",
+      await this.findSensorsSince(subMinutes(new Date(), 60))
+    )
+
+    io.emit(
+      "180-min-sensor-data",
+      await this.findSensorsSince(subMinutes(new Date(), 180))
+    )
   }
 }
 
