@@ -19,6 +19,9 @@ class SensorRepository {
           gte: date,
         },
       },
+      orderBy: {
+        created_at: "asc",
+      }
     });
   }
 
