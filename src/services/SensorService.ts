@@ -3,15 +3,24 @@ import { Sensor } from "@prisma/client";
 import { v7 as uuidv7 } from "uuid";
 import { BulkSensorData, SensorData } from "../types/Sensor";
 import { Request } from "express";
-import { subHours } from "date-fns";
+import { subHours, subMinutes } from "date-fns";
 
 class SensorService {
   private repository: SensorRepository;
 
   constructor() {
     this.repository = new SensorRepository();
+    this.findLastSensor = this.findLastSensor.bind(this);
     this.create = this.create.bind(this);
     this.bulkCreate = this.bulkCreate.bind(this);
+  }
+
+  async findLastSensor(): Promise<Sensor[] | null> {
+    return await this.repository.findLastSensor();
+  }
+
+  async findSensorsSince(date: Date): Promise<Sensor[]> {
+    return await this.repository.findSensorsSince(date);
   }
 
   async create(sensorData: SensorData): Promise<Sensor> {
@@ -28,12 +37,14 @@ class SensorService {
       ...sensor,
     }));
     const response = await this.repository.bulkCreate(sensors);
-    const getSensor = await this.repository.findSensorsSince(
-      subHours(new Date(), 1)
-    );
+
     const io = req.app.get("socketio");
-    io.emit("sensor-data-updated", getSensor);
-    io.emit("sensor-data-current", response);
+
+    io.emit("update-sensor-data", {
+      success: true,
+      status: 200,
+      message: "Data updated successfully.",
+    });
 
     return response;
   }

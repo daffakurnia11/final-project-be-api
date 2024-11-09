@@ -16,6 +16,7 @@ class SensorRoute {
   }
 
   private initializeRoutes() {
+    this.router.get("/", this.controller.get);
     this.router.post(
       "/single",
       this.validator.create,

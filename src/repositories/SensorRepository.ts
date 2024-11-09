@@ -3,15 +3,12 @@ import { Sensor } from "@prisma/client";
 import { SensorData } from "../types/Sensor";
 
 class SensorRepository {
-  async create(sensorData: SensorData): Promise<Sensor> {
-    return await SensorModel.create({
-      data: sensorData,
-    });
-  }
-
-  async bulkCreate(sensorsData: SensorData[]): Promise<Sensor[]> {
-    return await SensorModel.createManyAndReturn({
-      data: sensorsData,
+  async findLastSensor(): Promise<Sensor[] | null> {
+    return await SensorModel.findMany({
+      take: 3,
+      orderBy: {
+        created_at: "desc",
+      },
     });
   }
 
@@ -22,6 +19,18 @@ class SensorRepository {
           gte: date,
         },
       },
+    });
+  }
+
+  async create(sensorData: SensorData): Promise<Sensor> {
+    return await SensorModel.create({
+      data: sensorData,
+    });
+  }
+
+  async bulkCreate(sensorsData: SensorData[]): Promise<Sensor[]> {
+    return await SensorModel.createManyAndReturn({
+      data: sensorsData,
     });
   }
 }

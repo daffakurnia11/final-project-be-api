@@ -8,6 +8,7 @@ export const ERROR_MESSAGE = {
 };
 
 export const SENSOR_MESSAGE = {
+  SUCCESS: "Sensor retrieved successfully.",
   CREATED: "Sensor created successfully.",
   BULK_CREATED: "Sensors created successfully.",
   UPDATED: "Sensor updated successfully.",
