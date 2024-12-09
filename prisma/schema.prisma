@@ -32,4 +32,32 @@ model Sensor {
   @@map("sensor_electrics")
 }
 
+model SensorPrediction {
+  id                String   @id @default(uuid()) @db.Uuid
+  created_at        DateTime @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime @updatedAt @db.Timestamptz(6)
+  deleted_at        DateTime? @db.Timestamptz(6) // Nullable, used for soft delete
+  name              String   @db.Text
+  prediction_date   DateTime @db.Timestamptz(6) // Use DateTime for better date handling
+  prediction_power  Float
+  power             PowerPrediction[]
 
+  @@map("sensor_predictions")
+  @@index([name]) // Index for fast lookups by prediction name
+  @@index([prediction_date]) // Index for querying records by prediction date
+}
+
+model PowerPrediction {
+  id                    String   @id @default(uuid()) @db.Uuid
+  created_at            DateTime @default(now()) @db.Timestamptz(6)
+  updated_at            DateTime @updatedAt @db.Timestamptz(6)
+  deleted_at            DateTime? @db.Timestamptz(6) // Nullable, used for soft delete
+  sensor_prediction     SensorPrediction @relation(fields: [sensor_prediction_id], references: [id], onDelete: Cascade)
+  sensor_prediction_id  String   @db.Uuid
+  power                 Float
+
+  @@map("power_predictions")
+  @@index([sensor_prediction_id]) // Index for fast lookups by sensor prediction ID
+}
+
+// Optional: Define additional constraints or checks, such as non-negative power values
