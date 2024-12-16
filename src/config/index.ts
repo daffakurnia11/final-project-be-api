@@ -7,6 +7,7 @@ const envSchema = Joi.object({
   NODE_ENV: Joi.string().valid("development", "production", "test").required(),
   API_PORT: Joi.number().required(),
   DATABASE_URL: Joi.string().required(),
+  MODEL_API_URL: Joi.string().required(),
 }).unknown();
 
 const { error, value: envVars } = envSchema.validate(process.env);
@@ -18,5 +19,6 @@ if (error) {
 export const config = {
   env: envVars.NODE_ENV,
   apiPort: envVars.API_PORT,
-  dbUrl: envVars.DB_DATABASE_URLURL,
+  dbUrl: envVars.DB_DATABASE_URL,
+  modelUrl: envVars.MODEL_API_URL,
 };

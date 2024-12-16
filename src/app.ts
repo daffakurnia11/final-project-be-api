@@ -4,7 +4,10 @@ import bodyParser from "body-parser";
 import { errorHandler } from "./middlewares/errorHandler";
 import { responseHandler } from "./middlewares/responseHandler";
 import SensorRoute from "./routes/SensorRoute";
+import PredictionRoute from "./routes/PredictionRoute";
 import path from "path";
+
+// import './utils/scheduler';
 
 const app = express();
 
@@ -16,15 +19,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve static files
 app.use(express.static(path.join(__dirname, '../')));
 
-// Route for index.html
-app.get('/', (req, res) => {
-  console.log("test")
-  res.sendFile(path.join(__dirname, '../index.html'));
-});
-
 // Import routes here
 app.use(responseHandler);
-app.use("/api/v1/sensors", new SensorRoute().router); // Pass the service to SensorRoute
+app.use("/api/v1/sensors", new SensorRoute().router); 
+app.use("/api/v1/predictions", new PredictionRoute().router);
 app.use(errorHandler);
 
 export { app };

@@ -15,15 +15,22 @@ class SensorController {
 
   async get(req: Request, res: Response, next: NextFunction) {
     try {
-      const minutes = req.query.minutes;
+      const value: number | null = Number(req.query.value) as number | null;
+      const filter: "hour" | "minute" | "second" | null = req.query.filter as
+        | "hour"
+        | "minute"
+        | "second"
+        | null;
 
       let response;
-      if (minutes) {
-        response = await this.service.findSensorsSince(subMinutes(new Date(), Number(minutes)));
+      if (value && filter) {
+        response = await this.service.findSensorsSince(value, filter);
       } else {
         response = await this.service.findLastSensor();
       }
-      res.success(SENSOR_MESSAGE.SUCCESS, response);
+      const totalData = response?.length;
+
+      res.success(SENSOR_MESSAGE.SUCCESS, response, totalData);
     } catch (error) {
       next(error);
     }

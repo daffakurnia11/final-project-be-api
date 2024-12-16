@@ -3,7 +3,6 @@ import { Sensor } from "@prisma/client";
 import { v7 as uuidv7 } from "uuid";
 import { BulkSensorData, SensorData } from "../types/Sensor";
 import { Request } from "express";
-import { subHours, subMinutes } from "date-fns";
 
 class SensorService {
   private repository: SensorRepository;
@@ -19,8 +18,8 @@ class SensorService {
     return await this.repository.findLastSensor();
   }
 
-  async findSensorsSince(date: Date): Promise<Sensor[]> {
-    return await this.repository.findSensorsSince(date);
+  async findSensorsSince(value: number, filter: "hour" | "minute" | "second"): Promise<Sensor[]> {
+    return await this.repository.findSensorsSince(value, filter);
   }
 
   async create(sensorData: SensorData): Promise<Sensor> {
