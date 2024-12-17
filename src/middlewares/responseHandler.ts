@@ -5,6 +5,7 @@ declare global {
     interface Response {
       success: (message: string, data?: any, total_data?: number) => void;
       created: (message: string, data?: any) => void;
+      error: (message: string, data?: any) => void;
     }
   }
 }
@@ -32,6 +33,15 @@ export const responseHandler = (
     res.status(201).json({
       success: true,
       status: res.statusCode,
+      message,
+      data,
+    });
+  };
+
+  res.error = (message: string = "Error", data: any) => {
+    res.json({
+      success: false,
+      status: 400,
       message,
       data,
     });

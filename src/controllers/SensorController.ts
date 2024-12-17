@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { SENSOR_MESSAGE } from "../utils/message";
 import SensorService from "../services/SensorService";
-import { subHours, subMinutes } from "date-fns";
 
 class SensorController {
   private service: SensorService;

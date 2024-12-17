@@ -7,7 +7,6 @@ export const handleValidation = (
   next: NextFunction
 ) => {
   const errors = validationResult(req);
-  console.log(errors)
   if (!errors.isEmpty()) {
     next({
       message: errors.array()[0].msg,

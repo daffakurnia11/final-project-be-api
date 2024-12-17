@@ -2,18 +2,24 @@ import cron from "node-cron";
 import axios from "axios";
 import { config } from "../config";
 
-const hitPredictionEndpoint = async (sensor: string) => {
+export const hitPredictionEndpoint = async (
+  sensor: string,
+  predicted_date?: string | null
+) => {
   try {
     console.log("Prediction endpoint hit for sensor:", sensor);
     const response = await axios.post(
       `${config.modelUrl}/api/sensors/energy_prediction/`,
       {
         sensor,
+        predicted_date,
       }
     );
     console.log("Prediction endpoint hit successfully:", response.status);
-  } catch (error) {
+    return response.data;
+  } catch (error: any) {
     console.error("Error hitting the prediction endpoint:", error);
+    return error;
   }
 };
 
@@ -25,7 +31,7 @@ cron.schedule(
     await hitPredictionEndpoint("Sensor 3");
   },
   {
-    timezone: "UTC", 
+    timezone: "UTC",
   }
 );
 

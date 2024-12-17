@@ -3,5 +3,10 @@ export interface SensorPredictionData {
   name: string;
   prediction_date: Date;
   prediction_power: number;
-  prediction_data?: number[]
+  prediction_data?: number[];
+}
+
+export interface PredictionPayload {
+  predicted_date: string;
+  sensor: string;
 }
