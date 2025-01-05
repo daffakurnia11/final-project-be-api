@@ -5,7 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-arm64-openssl-3.0.x"]
 }
 
@@ -15,47 +15,48 @@ datasource db {
 }
 
 model Sensor {
-  id                String   @id @default(uuid()) @db.Uuid
-  created_at        DateTime @default(now()) @db.Timestamptz(6)
-  updated_at        DateTime @updatedAt @db.Timestamptz(6)
-  deleted_at        DateTime? @db.Timestamptz(6) // Nullable
-  name              String   @db.Text
-  voltage           Float    
-  current           Float    
-  power             Float    
-  power_factor      Float    
-  frequency         Float    
-  energy            Float    
-  apparent_power    Float    
-  reactive_power    Float   
+  id             String    @id @default(uuid()) @db.Uuid
+  created_at     DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime  @updatedAt @db.Timestamptz(6)
+  deleted_at     DateTime? @db.Timestamptz(6) // Nullable
+  name           String    @db.Text
+  voltage        Float
+  current        Float
+  power          Float
+  power_factor   Float
+  frequency      Float
+  energy         Float
+  apparent_power Float
+  reactive_power Float
 
   @@map("sensor_electrics")
 }
 
-model SensorPrediction {
-  id                String   @id @default(uuid()) @db.Uuid
-  created_at        DateTime @default(now()) @db.Timestamptz(6)
-  updated_at        DateTime @updatedAt @db.Timestamptz(6)
-  deleted_at        DateTime? @db.Timestamptz(6)
-  name              String   @db.Text
-  prediction_date   DateTime @db.Timestamptz(6) 
-  prediction_power  Float
-  power             PowerPrediction[]
+model Energy {
+  id                String            @id @default(uuid()) @db.Uuid
+  created_at        DateTime          @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime          @updatedAt @db.Timestamptz(6)
+  deleted_at        DateTime?         @db.Timestamptz(6)
+  name              String            @db.Text
+  date              String            @db.Text
+  calculated_energy Float?
+  predicted_energy  Float?
+  predicted_power   PowerPrediction[]
 
-  @@map("sensor_predictions")
   @@index([name])
-  @@index([prediction_date])
+  @@index([date])
+  @@map("energies")
 }
 
 model PowerPrediction {
-  id                    String   @id @default(uuid()) @db.Uuid
-  created_at            DateTime @default(now()) @db.Timestamptz(6)
-  updated_at            DateTime @updatedAt @db.Timestamptz(6)
-  deleted_at            DateTime? @db.Timestamptz(6)
-  sensor_prediction     SensorPrediction @relation(fields: [sensor_prediction_id], references: [id], onDelete: Cascade)
-  sensor_prediction_id  String   @db.Uuid
-  power                 Float
+  id          String    @id @default(uuid()) @db.Uuid
+  created_at  DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime  @updatedAt @db.Timestamptz(6)
+  deleted_at  DateTime? @db.Timestamptz(6)
+  energy      Energy    @relation(fields: [energy_id], references: [id], onDelete: Cascade)
+  energy_id   String    @db.Uuid
+  power       Float
 
+  @@index([energy_id])
   @@map("power_predictions")
-  @@index([sensor_prediction_id])
 }
