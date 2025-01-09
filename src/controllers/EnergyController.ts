@@ -17,12 +17,32 @@ class EnergyController {
       let response;
       if (req.query.sensor) {
         response = await this.service.findEnergyBySensor(
-          req.query.sensor as string
+          req.query.sensor as string,
+          Number(req.query.page),
+          Number(req.query.limit)
         );
       } else {
-        response = await this.service.getEnergies();
+        response = await this.service.getEnergies(
+          Number(req.query.page),
+          Number(req.query.limit)
+        );
       }
-      res.success("Success", response);
+
+      if (req.query.page) {
+        const totalData = await this.service.countEnergy(
+          req.query.sensor as string
+        );
+        res.paginated(
+          "Success",
+          response,
+          response.length,
+          totalData,
+          Number(req.query.page),
+          Number(req.query.limit) || 10
+        );
+      } else {
+        res.success("Success", response);
+      }
     } catch (error) {
       next(error);
     }
@@ -30,7 +50,9 @@ class EnergyController {
 
   async findEnergyById(req: Request, res: Response, next: NextFunction) {
     try {
-      const response = await this.service.findEnergyById(req.params.id as string);
+      const response = await this.service.findEnergyById(
+        req.params.id as string
+      );
       res.success("Success", response);
     } catch (error) {
       next(error);

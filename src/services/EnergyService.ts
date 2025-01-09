@@ -12,12 +12,16 @@ class EnergyService {
     this.repository = new EnergyRepository();
   }
 
-  async getEnergies(): Promise<any> {
-    return await this.repository.getEnergies();
+  async getEnergies(page?: number, limit?: number): Promise<any> {
+    return await this.repository.getEnergies(page, limit);
   }
 
-  async findEnergyBySensor(sensor: string): Promise<any> {
-    return await this.repository.findEnergyBySensor(sensor);
+  async countEnergy(sensor?: string): Promise<any> {
+    return await this.repository.countEnergies(sensor);
+  }
+
+  async findEnergyBySensor(sensor: string, page?: number, limit?: number): Promise<any> {
+    return await this.repository.findEnergyBySensor(sensor, page, limit);
   }
 
   async findEnergyById(id: string): Promise<any> {
@@ -30,13 +34,12 @@ class EnergyService {
     io.emit("prediction-status", true);
 
     try {
-      let response;
       if (data.sensor !== "all") {
-        response = await startPredict(data.sensor, data.date);
+        await startPredict(data.sensor, data.date);
       } else {
-        response = await startPredict("Sensor 1", data.date);
-        response = await startPredict("Sensor 2", data.date);
-        response = await startPredict("Sensor 3", data.date);
+        await startPredict("Sensor 1", data.date);
+        await startPredict("Sensor 2", data.date);
+        await startPredict("Sensor 3", data.date);
       }
       io.emit("prediction-status", false);
     } catch (error: any) {
@@ -56,13 +59,12 @@ class EnergyService {
     io.emit("calculation-status", true);
 
     try {
-      let response;
       if (data.sensor !== "all") {
-        response = await startCalculate(data.sensor, data.date);
+        await startCalculate(data.sensor, data.date);
       } else {
-        response = await startCalculate("Sensor 1", data.date);
-        response = await startCalculate("Sensor 2", data.date);
-        response = await startCalculate("Sensor 3", data.date);
+        await startCalculate("Sensor 1", data.date);
+        await startCalculate("Sensor 2", data.date);
+        await startCalculate("Sensor 3", data.date);
       }
       io.emit("calculation-status", false);
     } catch (error: any) {
